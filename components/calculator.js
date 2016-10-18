@@ -4,52 +4,36 @@ var NumButton = require("./numberButtons");
 var ClearButton = require("./clearButton.js");
 var OpButton = require("./operatorButtons.js");
 var EvalButton = require("./evalButton.js");
-var String = '';
-var val;
-
+var string = '';
 var Calculator = React.createClass({
   getInitialState: function() {
     return {inputValue: ''};
   },
-  onChange: function(event){
-    console.log(event.target.value);
-    console.log("I think I am working...!")
-  },
-  onSubmit: function(e) {
-    e.preventDefault();
-    console.log('hello world!');
-  },
   onNumClick: function(event) {
     //console.log(event.target.value);
-    val = event.target.value;
-    val = parseInt(val);
-    String += val.toString();
-    console.log(typeof(String));
+    string += event.target.value;
     this.setState({
-      inputValue: String
+      inputValue: string
     });
   },
   onOpClick: function(event) {
-    String += event.target.value;
-    console.log('op button clicked');
+    string += event.target.value;
     this.setState({
-      inputValue: String
+      inputValue: string
     });
   },
   onClearClick: function(event) {
-    console.log("string before"+ String);
-    String = "";
+    string = "";
     this.setState({
-      inputValue: String
+      inputValue: string
     });
   },
-  onEvalClick: function(event) {
-    console.log(event.target.value);
-    String += event.target.value;
-    String = eval(String);
-    String = String.toString();
+  onEvalClick: function() {
+    string = eval(string);
+     string = string.toString();
+
     this.setState({
-      inputValue: String
+      inputValue: string
     });
   },
   render: function() {
@@ -58,7 +42,7 @@ var Calculator = React.createClass({
             <div className="row">
               <div className="calc-container">
                 <form onSubmit={this.onSubmit}>
-                  <input type="text" id="text" onChange={this.onChange}
+                  <input type="text" id="text" 
                     value={this.state.inputValue}/>
                       <div className="col-xs-3">
                         <NumButton num= '7' onClick = {this.onNumClick}/>
@@ -82,7 +66,7 @@ var Calculator = React.createClass({
                         <div className="col-xs-3">
                           <ClearButton onClick = {this.onClearClick}/>
                           <OpButton op= '/' onClick = {this.onOpClick} />
-                          <OpButton op= 'X' onClick = {this.onOpClick} />
+                          <OpButton op= '*' onClick = {this.onOpClick} />
                           <OpButton op= '-' onClick = {this.onOpClick} />
                           <OpButton op= '+' onClick = {this.onOpClick} />
                         </div>

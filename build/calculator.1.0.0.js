@@ -21426,62 +21426,44 @@
 
 	"use strict";
 	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
 	var React = __webpack_require__(1);
 	var ReactDom = __webpack_require__(34);
 	var NumButton = __webpack_require__(173);
 	var ClearButton = __webpack_require__(174);
 	var OpButton = __webpack_require__(175);
 	var EvalButton = __webpack_require__(176);
-	var String = '';
-	var val;
-	
+	var string = '';
 	var Calculator = React.createClass({
 	  displayName: "Calculator",
 	
 	  getInitialState: function getInitialState() {
 	    return { inputValue: '' };
 	  },
-	  onChange: function onChange(event) {
-	    console.log(event.target.value);
-	    console.log("I think I am working...!");
-	  },
-	  onSubmit: function onSubmit(e) {
-	    e.preventDefault();
-	    console.log('hello world!');
-	  },
 	  onNumClick: function onNumClick(event) {
 	    //console.log(event.target.value);
-	    val = event.target.value;
-	    val = parseInt(val);
-	    String += val.toString();
-	    console.log(typeof String === "undefined" ? "undefined" : _typeof(String));
+	    string += event.target.value;
 	    this.setState({
-	      inputValue: String
+	      inputValue: string
 	    });
 	  },
 	  onOpClick: function onOpClick(event) {
-	    String += event.target.value;
-	    console.log('op button clicked');
+	    string += event.target.value;
 	    this.setState({
-	      inputValue: String
+	      inputValue: string
 	    });
 	  },
 	  onClearClick: function onClearClick(event) {
-	    console.log("string before" + String);
-	    String = "";
+	    string = "";
 	    this.setState({
-	      inputValue: String
+	      inputValue: string
 	    });
 	  },
-	  onEvalClick: function onEvalClick(event) {
-	    console.log(event.target.value);
-	    String += event.target.value;
-	    String = eval(String);
-	    String = String.toString();
+	  onEvalClick: function onEvalClick() {
+	    string = eval(string);
+	    string = string.toString();
+	
 	    this.setState({
-	      inputValue: String
+	      inputValue: string
 	    });
 	  },
 	  render: function render() {
@@ -21497,7 +21479,7 @@
 	          React.createElement(
 	            "form",
 	            { onSubmit: this.onSubmit },
-	            React.createElement("input", { type: "text", id: "text", onChange: this.onChange,
+	            React.createElement("input", { type: "text", id: "text",
 	              value: this.state.inputValue }),
 	            React.createElement(
 	              "div",
@@ -21531,7 +21513,7 @@
 	                { className: "col-xs-3" },
 	                React.createElement(ClearButton, { onClick: this.onClearClick }),
 	                React.createElement(OpButton, { op: "/", onClick: this.onOpClick }),
-	                React.createElement(OpButton, { op: "X", onClick: this.onOpClick }),
+	                React.createElement(OpButton, { op: "*", onClick: this.onOpClick }),
 	                React.createElement(OpButton, { op: "-", onClick: this.onOpClick }),
 	                React.createElement(OpButton, { op: "+", onClick: this.onOpClick })
 	              )
@@ -21632,7 +21614,11 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement('input', { type: 'button', onClick: this.props.onClick, value: '=', className: 'eval-button' }),
+	      React.createElement(
+	        'button',
+	        { type: 'button', onClick: this.props.onClick, className: 'eval-button' },
+	        '='
+	      ),
 	      '\u200B'
 	    );
 	  }
