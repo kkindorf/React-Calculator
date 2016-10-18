@@ -48,7 +48,7 @@
 	
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
-	var Calculator = __webpack_require__(176);
+	var Calculator = __webpack_require__(172);
 	document.addEventListener('DOMContentLoaded', function () {
 	  ReactDOM.render(React.createElement(Calculator, null), document.getElementById('app'));
 	});
@@ -21421,7 +21421,88 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 172 */,
+/* 172 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var React = __webpack_require__(1);
+	var ReactDom = __webpack_require__(34);
+	var NumButton = __webpack_require__(173);
+	var ClearButton = __webpack_require__(174);
+	var OpButton = __webpack_require__(175);
+	var String = '';
+	var Calculator = React.createClass({
+	  displayName: "Calculator",
+	
+	  getInitialState: function getInitialState() {
+	    return { inputValue: "Let's do some math" };
+	  },
+	  onChange: function onChange(event) {
+	    console.log(event.target.value);
+	    console.log("I think I am working...!");
+	  },
+	  onSubmit: function onSubmit(e) {
+	    e.preventDefault();
+	    console.log('hello world!');
+	  },
+	  onNumClick: function onNumClick(event) {
+	    //console.log(event.target.value);
+	    String += event.target.value;
+	    console.log(String);
+	    console.log('num button clicked');
+	    this.setState({
+	      inputValue: String
+	    });
+	  },
+	  onOpClick: function onOpClick(event) {
+	    String += event.target.value;
+	    console.log('op button clicked');
+	    this.setState({
+	      inputValue: String
+	    });
+	  },
+	  onClearClick: function onClearClick(event) {
+	    console.log("string before" + String);
+	    String = "";
+	    console.log("string now:" + inputValue);
+	    this.setState({
+	      inputValue: String
+	    });
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      "div",
+	      { className: "calc-container" },
+	      React.createElement(
+	        "form",
+	        { onSubmit: this.onSubmit },
+	        React.createElement("input", { type: "text", id: "text", onChange: this.onChange,
+	          value: this.state.inputValue }),
+	        React.createElement(ClearButton, { onClick: this.onClearClick }),
+	        React.createElement(
+	          "div",
+	          { className: "num-buttons" },
+	          React.createElement(NumButton, { num: "1", onClick: this.onNumClick })
+	        ),
+	        React.createElement(
+	          "div",
+	          { className: "op-buttons" },
+	          React.createElement(OpButton, { op: "*", onClick: this.onOpClick })
+	        ),
+	        React.createElement(
+	          "button",
+	          { type: "submit" },
+	          "Submit"
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Calculator;
+
+/***/ },
 /* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -21491,77 +21572,6 @@
 	});
 	
 	module.exports = OpButton;
-
-/***/ },
-/* 176 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	var React = __webpack_require__(1);
-	var ReactDom = __webpack_require__(34);
-	var NumButton = __webpack_require__(173);
-	var ClearButton = __webpack_require__(174);
-	var OpButton = __webpack_require__(175);
-	var String = '';
-	var Calculator = React.createClass({
-	  displayName: "Calculator",
-	
-	  onChange: function onChange(event) {
-	    console.log(event.target.value);
-	    console.log("I think I am working...!");
-	  },
-	  onSubmit: function onSubmit(e) {
-	    e.preventDefault();
-	    console.log('hello world!');
-	  },
-	  onNumClick: function onNumClick(event) {
-	    //console.log(event.target.value);
-	    String += event.target.value;
-	    console.log(String);
-	    console.log('num button clicked');
-	  },
-	  onOpClick: function onOpClick(event) {
-	    String += event.target.value;
-	    console.log(String);
-	    console.log('op button clicked');
-	  },
-	  onClearClick: function onClearClick(event) {
-	    console.log("string before" + String);
-	    String = "";
-	    console.log("string now:" + String);
-	  },
-	  render: function render() {
-	    return React.createElement(
-	      "div",
-	      { className: "calc-container" },
-	      React.createElement(
-	        "form",
-	        { onSubmit: this.onSubmit },
-	        React.createElement("input", { type: "text", onChange: this.onChange,
-	          placeholder: "Let's do some math" }),
-	        React.createElement(ClearButton, { onClick: this.onClearClick }),
-	        React.createElement(
-	          "div",
-	          { className: "num-buttons" },
-	          React.createElement(NumButton, { num: "1", onClick: this.onNumClick })
-	        ),
-	        React.createElement(
-	          "div",
-	          { className: "op-buttons" },
-	          React.createElement(OpButton, { op: "*", onClick: this.onOpClick })
-	        ),
-	        React.createElement(
-	          "button",
-	          { type: "submit" },
-	          "Submit"
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Calculator;
 
 /***/ }
 /******/ ]);
