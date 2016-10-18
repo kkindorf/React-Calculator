@@ -21426,17 +21426,22 @@
 
 	"use strict";
 	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
 	var React = __webpack_require__(1);
 	var ReactDom = __webpack_require__(34);
 	var NumButton = __webpack_require__(173);
 	var ClearButton = __webpack_require__(174);
 	var OpButton = __webpack_require__(175);
+	var EvalButton = __webpack_require__(176);
 	var String = '';
+	var val;
+	
 	var Calculator = React.createClass({
 	  displayName: "Calculator",
 	
 	  getInitialState: function getInitialState() {
-	    return { inputValue: "Let's do some math" };
+	    return { inputValue: '' };
 	  },
 	  onChange: function onChange(event) {
 	    console.log(event.target.value);
@@ -21448,9 +21453,10 @@
 	  },
 	  onNumClick: function onNumClick(event) {
 	    //console.log(event.target.value);
-	    String += event.target.value;
-	    console.log(String);
-	    console.log('num button clicked');
+	    val = event.target.value;
+	    val = parseInt(val);
+	    String += val.toString();
+	    console.log(typeof String === "undefined" ? "undefined" : _typeof(String));
 	    this.setState({
 	      inputValue: String
 	    });
@@ -21465,7 +21471,15 @@
 	  onClearClick: function onClearClick(event) {
 	    console.log("string before" + String);
 	    String = "";
-	    console.log("string now:" + inputValue);
+	    this.setState({
+	      inputValue: String
+	    });
+	  },
+	  onEvalClick: function onEvalClick(event) {
+	    console.log(event.target.value);
+	    String += event.target.value;
+	    String = eval(String);
+	    String = String.toString();
 	    this.setState({
 	      inputValue: String
 	    });
@@ -21473,27 +21487,56 @@
 	  render: function render() {
 	    return React.createElement(
 	      "div",
-	      { className: "calc-container" },
+	      { className: "container-fluid" },
 	      React.createElement(
-	        "form",
-	        { onSubmit: this.onSubmit },
-	        React.createElement("input", { type: "text", id: "text", onChange: this.onChange,
-	          value: this.state.inputValue }),
-	        React.createElement(ClearButton, { onClick: this.onClearClick }),
+	        "div",
+	        { className: "row" },
 	        React.createElement(
 	          "div",
-	          { className: "num-buttons" },
-	          React.createElement(NumButton, { num: "1", onClick: this.onNumClick })
-	        ),
-	        React.createElement(
-	          "div",
-	          { className: "op-buttons" },
-	          React.createElement(OpButton, { op: "*", onClick: this.onOpClick })
-	        ),
-	        React.createElement(
-	          "button",
-	          { type: "submit" },
-	          "Submit"
+	          { className: "calc-container" },
+	          React.createElement(
+	            "form",
+	            { onSubmit: this.onSubmit },
+	            React.createElement("input", { type: "text", id: "text", onChange: this.onChange,
+	              value: this.state.inputValue }),
+	            React.createElement(
+	              "div",
+	              { className: "col-xs-3" },
+	              React.createElement(NumButton, { num: "7", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { num: "4", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { num: "1", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { num: ".", onClick: this.onNumClick })
+	            ),
+	            React.createElement(
+	              "div",
+	              { className: "col-xs-3" },
+	              React.createElement(NumButton, { num: "8", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { num: "5", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { num: "2", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { num: "0", onClick: this.onNumClick })
+	            ),
+	            React.createElement(
+	              "div",
+	              { className: "col-xs-3" },
+	              React.createElement(NumButton, { num: "9", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { num: "6", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { num: "3", onClick: this.onNumClick }),
+	              React.createElement(EvalButton, { onClick: this.onEvalClick })
+	            ),
+	            React.createElement(
+	              "div",
+	              { className: "op-buttons" },
+	              React.createElement(
+	                "div",
+	                { className: "col-xs-3" },
+	                React.createElement(ClearButton, { onClick: this.onClearClick }),
+	                React.createElement(OpButton, { op: "/", onClick: this.onOpClick }),
+	                React.createElement(OpButton, { op: "X", onClick: this.onOpClick }),
+	                React.createElement(OpButton, { op: "-", onClick: this.onOpClick }),
+	                React.createElement(OpButton, { op: "+", onClick: this.onOpClick })
+	              )
+	            )
+	          )
 	        )
 	      )
 	    );
@@ -21572,6 +21615,30 @@
 	});
 	
 	module.exports = OpButton;
+
+/***/ },
+/* 176 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var reactDom = __webpack_require__(34);
+	
+	var EvalButton = React.createClass({
+	  displayName: 'EvalButton',
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement('input', { type: 'button', onClick: this.props.onClick, value: '=', className: 'eval-button' }),
+	      '\u200B'
+	    );
+	  }
+	});
+	
+	module.exports = EvalButton;
 
 /***/ }
 /******/ ]);

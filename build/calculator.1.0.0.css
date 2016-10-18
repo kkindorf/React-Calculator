@@ -1,4 +1,19 @@
-h1 {
-  color: blue;
+.calc-container {
+  width: 50%;
+  height: 50%;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+#text {
+  width: 100%;
+  text-align: right;
+  height: 100px;
+}
+.buttons {
+  width: 100%;
 }
 /*# sourceMappingURL=calculator.1.0.0.css.map */
