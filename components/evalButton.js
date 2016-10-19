@@ -5,7 +5,7 @@ var EvalButton = React.createClass({
   render: function(){
     return (
       <div>
-        <button type="button"  onClick={this.props.onClick}  className="eval-button">=</button>​
+        <input type="button"  onClick={this.props.onClick}  className="eval-button" value = "="/>​
       </div>
     )
   }

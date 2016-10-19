@@ -8,7 +8,8 @@ var string = '';
 var total = '';
 var initialState = {
   inputValue: '',
-  totalValue: ''
+  totalValue: '',
+  string: ''
 }
 var Calculator = React.createClass({
   getInitialState: function() {
@@ -16,40 +17,33 @@ var Calculator = React.createClass({
   },
   onNumClick: function(event) {
     //console.log(event.target.value);
-    if(total !== ''){
-      total == '';
-    }
     string += event.target.value;
     this.setState({
-      inputValue: string,
-      totalValue: total
+      inputValue: event.target.value,
+      totalValue: string
 
     });
   },
   onOpClick: function(event) {
-    if(total !== ''){
-      string = total.toString();
       string += event.target.value;
-    }else{
-      string += event.target.value;
-    }
     this.setState({
-      inputValue: string,
+      inputValue: event.target.value,
+      totalValue: string
     });
   },
   onClearClick: function() {
-    string = "";
-    this.setState({
-      inputValue: '',
-      totalValue: ''
-    });
+    this.setState(this.getInitialState());
+    string = '';
+
   },
+
   onEvalClick: function() {
     total = eval(string);
     this.setState({
-      inputValue: string,
-      totalValue: total
+      inputValue: total,
+      totalValue: ''
     });
+    string = total.toString();
   },
   render: function() {
     return (
@@ -59,7 +53,7 @@ var Calculator = React.createClass({
                 <form onSubmit={this.onSubmit}>
                   <input type="text" id="text"
                     value={this.state.inputValue}/>
-                    <p className="total-value">{this.state.totalValue}</p>
+                    <input type = "text" id="total-value" value = {this.state.totalValue}/>
                       <div className="col-xs-3">
                         <NumButton num= '7' onClick = {this.onNumClick}/>
                         <NumButton num= '4' onClick = {this.onNumClick}/>

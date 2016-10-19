@@ -21436,7 +21436,8 @@
 	var total = '';
 	var initialState = {
 	  inputValue: '',
-	  totalValue: ''
+	  totalValue: '',
+	  string: ''
 	};
 	var Calculator = React.createClass({
 	  displayName: "Calculator",
@@ -21446,40 +21447,32 @@
 	  },
 	  onNumClick: function onNumClick(event) {
 	    //console.log(event.target.value);
-	    if (total !== '') {
-	      total == '';
-	    }
 	    string += event.target.value;
 	    this.setState({
-	      inputValue: string,
-	      totalValue: total
+	      inputValue: event.target.value,
+	      totalValue: string
 	
 	    });
 	  },
 	  onOpClick: function onOpClick(event) {
-	    if (total !== '') {
-	      string = total.toString();
-	      string += event.target.value;
-	    } else {
-	      string += event.target.value;
-	    }
+	    string += event.target.value;
 	    this.setState({
-	      inputValue: string
+	      inputValue: event.target.value,
+	      totalValue: string
 	    });
 	  },
 	  onClearClick: function onClearClick() {
-	    string = "";
-	    this.setState({
-	      inputValue: '',
-	      totalValue: ''
-	    });
+	    this.setState(this.getInitialState());
+	    string = '';
 	  },
+	
 	  onEvalClick: function onEvalClick() {
 	    total = eval(string);
 	    this.setState({
-	      inputValue: string,
-	      totalValue: total
+	      inputValue: total,
+	      totalValue: ''
 	    });
+	    string = total.toString();
 	  },
 	  render: function render() {
 	    return React.createElement(
@@ -21496,11 +21489,7 @@
 	            { onSubmit: this.onSubmit },
 	            React.createElement("input", { type: "text", id: "text",
 	              value: this.state.inputValue }),
-	            React.createElement(
-	              "p",
-	              { className: "total-value" },
-	              this.state.totalValue
-	            ),
+	            React.createElement("input", { type: "text", id: "total-value", value: this.state.totalValue }),
 	            React.createElement(
 	              "div",
 	              { className: "col-xs-3" },
@@ -21634,11 +21623,7 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(
-	        'button',
-	        { type: 'button', onClick: this.props.onClick, className: 'eval-button' },
-	        '='
-	      ),
+	      React.createElement('input', { type: 'button', onClick: this.props.onClick, className: 'eval-button', value: '=' }),
 	      '\u200B'
 	    );
 	  }
