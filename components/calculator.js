@@ -5,35 +5,50 @@ var ClearButton = require("./clearButton.js");
 var OpButton = require("./operatorButtons.js");
 var EvalButton = require("./evalButton.js");
 var string = '';
+var total = '';
+var initialState = {
+  inputValue: '',
+  totalValue: ''
+}
 var Calculator = React.createClass({
   getInitialState: function() {
-    return {inputValue: ''};
+    return initialState;
   },
   onNumClick: function(event) {
     //console.log(event.target.value);
+    if(total !== ''){
+      total == '';
+    }
     string += event.target.value;
     this.setState({
-      inputValue: string
+      inputValue: string,
+      totalValue: total
+
     });
   },
   onOpClick: function(event) {
-    string += event.target.value;
+    if(total !== ''){
+      string = total.toString();
+      string += event.target.value;
+    }else{
+      string += event.target.value;
+    }
     this.setState({
-      inputValue: string
+      inputValue: string,
     });
   },
-  onClearClick: function(event) {
+  onClearClick: function() {
     string = "";
     this.setState({
-      inputValue: string
+      inputValue: '',
+      totalValue: ''
     });
   },
   onEvalClick: function() {
-    string = eval(string);
-     string = string.toString();
-
+    total = eval(string);
     this.setState({
-      inputValue: string
+      inputValue: string,
+      totalValue: total
     });
   },
   render: function() {
@@ -42,8 +57,9 @@ var Calculator = React.createClass({
             <div className="row">
               <div className="calc-container">
                 <form onSubmit={this.onSubmit}>
-                  <input type="text" id="text" 
+                  <input type="text" id="text"
                     value={this.state.inputValue}/>
+                    <p className="total-value">{this.state.totalValue}</p>
                       <div className="col-xs-3">
                         <NumButton num= '7' onClick = {this.onNumClick}/>
                         <NumButton num= '4' onClick = {this.onNumClick}/>

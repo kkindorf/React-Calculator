@@ -21433,37 +21433,52 @@
 	var OpButton = __webpack_require__(175);
 	var EvalButton = __webpack_require__(176);
 	var string = '';
+	var total = '';
+	var initialState = {
+	  inputValue: '',
+	  totalValue: ''
+	};
 	var Calculator = React.createClass({
 	  displayName: "Calculator",
 	
 	  getInitialState: function getInitialState() {
-	    return { inputValue: '' };
+	    return initialState;
 	  },
 	  onNumClick: function onNumClick(event) {
 	    //console.log(event.target.value);
+	    if (total !== '') {
+	      total == '';
+	    }
 	    string += event.target.value;
 	    this.setState({
-	      inputValue: string
+	      inputValue: string,
+	      totalValue: total
+	
 	    });
 	  },
 	  onOpClick: function onOpClick(event) {
-	    string += event.target.value;
+	    if (total !== '') {
+	      string = total.toString();
+	      string += event.target.value;
+	    } else {
+	      string += event.target.value;
+	    }
 	    this.setState({
 	      inputValue: string
 	    });
 	  },
-	  onClearClick: function onClearClick(event) {
+	  onClearClick: function onClearClick() {
 	    string = "";
 	    this.setState({
-	      inputValue: string
+	      inputValue: '',
+	      totalValue: ''
 	    });
 	  },
 	  onEvalClick: function onEvalClick() {
-	    string = eval(string);
-	    string = string.toString();
-	
+	    total = eval(string);
 	    this.setState({
-	      inputValue: string
+	      inputValue: string,
+	      totalValue: total
 	    });
 	  },
 	  render: function render() {
@@ -21481,6 +21496,11 @@
 	            { onSubmit: this.onSubmit },
 	            React.createElement("input", { type: "text", id: "text",
 	              value: this.state.inputValue }),
+	            React.createElement(
+	              "p",
+	              { className: "total-value" },
+	              this.state.totalValue
+	            ),
 	            React.createElement(
 	              "div",
 	              { className: "col-xs-3" },
