@@ -7,41 +7,38 @@ var EvalButton = require("./evalButton.js");
 var string = '';
 var total = '';
 var initialState = {
-  inputValue: '',
-  totalValue: '',
-  string: ''
+  inputValue: ''
 }
 var Calculator = React.createClass({
   getInitialState: function() {
     return initialState;
   },
   onNumClick: function(event) {
-    //console.log(event.target.value);
+    if(string == total){
+      string = '';
+    }
     string += event.target.value;
     this.setState({
-      inputValue: event.target.value,
-      totalValue: string
-
+      inputValue: string
     });
   },
   onOpClick: function(event) {
-      string += event.target.value;
+     if(isNaN(string[string.length -1])){
+       return;
+     }
+    string += event.target.value;
     this.setState({
-      inputValue: event.target.value,
-      totalValue: string
+      inputValue: string
     });
   },
   onClearClick: function() {
     this.setState(this.getInitialState());
     string = '';
-
   },
-
   onEvalClick: function() {
     total = eval(string);
     this.setState({
-      inputValue: total,
-      totalValue: ''
+      inputValue: total
     });
     string = total.toString();
   },
@@ -53,23 +50,22 @@ var Calculator = React.createClass({
                 <form onSubmit={this.onSubmit}>
                   <input type="text" id="text"
                     value={this.state.inputValue}/>
-                    <input type = "text" id="total-value" value = {this.state.totalValue}/>
                       <div className="col-xs-3">
-                        <NumButton num= '7' onClick = {this.onNumClick}/>
-                        <NumButton num= '4' onClick = {this.onNumClick}/>
-                        <NumButton num= '1' onClick = {this.onNumClick}/>
-                        <NumButton num='.' onClick = {this.onNumClick}/>
+                        <NumButton disabled = {this.state.isDisabled} num= '7' onClick = {this.onNumClick}/>
+                        <NumButton disabled = {this.state.isDisabled} num= '4' onClick = {this.onNumClick}/>
+                        <NumButton disabled = {this.state.isDisabled} num= '1' onClick = {this.onNumClick}/>
+                        <NumButton disabled = {this.state.isDisabled} num='.' onClick = {this.onNumClick}/>
                       </div>
                       <div className="col-xs-3">
-                        <NumButton num= '8' onClick = {this.onNumClick}/>
-                        <NumButton num= '5' onClick = {this.onNumClick}/>
-                        <NumButton num= '2' onClick = {this.onNumClick}/>
-                        <NumButton num= '0' onClick = {this.onNumClick}/>
+                        <NumButton disabled = {this.state.isDisabled} num= '8' onClick = {this.onNumClick}/>
+                        <NumButton disabled = {this.state.isDisabled} num= '5' onClick = {this.onNumClick}/>
+                        <NumButton disabled = {this.state.isDisabled} num= '2' onClick = {this.onNumClick}/>
+                        <NumButton disabled = {this.state.isDisabled} num= '0' onClick = {this.onNumClick}/>
                       </div>
                       <div className="col-xs-3">
-                        <NumButton num= '9' onClick = {this.onNumClick}/>
-                        <NumButton num= '6' onClick = {this.onNumClick}/>
-                        <NumButton num= '3' onClick = {this.onNumClick}/>
+                        <NumButton disabled = {this.state.isDisabled} num= '9' onClick = {this.onNumClick}/>
+                        <NumButton disabled = {this.state.isDisabled} num= '6' onClick = {this.onNumClick}/>
+                        <NumButton disabled = {this.state.isDisabled} num= '3' onClick = {this.onNumClick}/>
                         <EvalButton onClick = {this.onEvalClick}/>
                       </div>
                       <div className="op-buttons">

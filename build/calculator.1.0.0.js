@@ -21435,9 +21435,7 @@
 	var string = '';
 	var total = '';
 	var initialState = {
-	  inputValue: '',
-	  totalValue: '',
-	  string: ''
+	  inputValue: ''
 	};
 	var Calculator = React.createClass({
 	  displayName: "Calculator",
@@ -21446,31 +21444,31 @@
 	    return initialState;
 	  },
 	  onNumClick: function onNumClick(event) {
-	    //console.log(event.target.value);
+	    if (string == total) {
+	      string = '';
+	    }
 	    string += event.target.value;
 	    this.setState({
-	      inputValue: event.target.value,
-	      totalValue: string
-	
+	      inputValue: string
 	    });
 	  },
 	  onOpClick: function onOpClick(event) {
+	    if (isNaN(string[string.length - 1])) {
+	      return;
+	    }
 	    string += event.target.value;
 	    this.setState({
-	      inputValue: event.target.value,
-	      totalValue: string
+	      inputValue: string
 	    });
 	  },
 	  onClearClick: function onClearClick() {
 	    this.setState(this.getInitialState());
 	    string = '';
 	  },
-	
 	  onEvalClick: function onEvalClick() {
 	    total = eval(string);
 	    this.setState({
-	      inputValue: total,
-	      totalValue: ''
+	      inputValue: total
 	    });
 	    string = total.toString();
 	  },
@@ -21489,29 +21487,28 @@
 	            { onSubmit: this.onSubmit },
 	            React.createElement("input", { type: "text", id: "text",
 	              value: this.state.inputValue }),
-	            React.createElement("input", { type: "text", id: "total-value", value: this.state.totalValue }),
 	            React.createElement(
 	              "div",
 	              { className: "col-xs-3" },
-	              React.createElement(NumButton, { num: "7", onClick: this.onNumClick }),
-	              React.createElement(NumButton, { num: "4", onClick: this.onNumClick }),
-	              React.createElement(NumButton, { num: "1", onClick: this.onNumClick }),
-	              React.createElement(NumButton, { num: ".", onClick: this.onNumClick })
+	              React.createElement(NumButton, { disabled: this.state.isDisabled, num: "7", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { disabled: this.state.isDisabled, num: "4", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { disabled: this.state.isDisabled, num: "1", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { disabled: this.state.isDisabled, num: ".", onClick: this.onNumClick })
 	            ),
 	            React.createElement(
 	              "div",
 	              { className: "col-xs-3" },
-	              React.createElement(NumButton, { num: "8", onClick: this.onNumClick }),
-	              React.createElement(NumButton, { num: "5", onClick: this.onNumClick }),
-	              React.createElement(NumButton, { num: "2", onClick: this.onNumClick }),
-	              React.createElement(NumButton, { num: "0", onClick: this.onNumClick })
+	              React.createElement(NumButton, { disabled: this.state.isDisabled, num: "8", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { disabled: this.state.isDisabled, num: "5", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { disabled: this.state.isDisabled, num: "2", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { disabled: this.state.isDisabled, num: "0", onClick: this.onNumClick })
 	            ),
 	            React.createElement(
 	              "div",
 	              { className: "col-xs-3" },
-	              React.createElement(NumButton, { num: "9", onClick: this.onNumClick }),
-	              React.createElement(NumButton, { num: "6", onClick: this.onNumClick }),
-	              React.createElement(NumButton, { num: "3", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { disabled: this.state.isDisabled, num: "9", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { disabled: this.state.isDisabled, num: "6", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { disabled: this.state.isDisabled, num: "3", onClick: this.onNumClick }),
 	              React.createElement(EvalButton, { onClick: this.onEvalClick })
 	            ),
 	            React.createElement(
