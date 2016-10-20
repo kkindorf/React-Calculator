@@ -1,6 +1,6 @@
 .calc-container {
   width: 25%;
-  height: 65%;
+  height: 425px;
   margin: auto;
   position: absolute;
   top: 0;
@@ -9,16 +9,17 @@
   right: 0;
   border: 1px solid black;
 }
-#text {
-  width: 100%;
-  text-align: right;
-  height: 100px;
+input {
   border: 0;
-  hightlight: none;
-  letter-spacing: 10px;
+  text-align: right;
+  width: 100%;
+  highlight: none;
 }
-#text:focus {
+input:focus {
   outline: none;
+}
+#text {
+  height: 100px;
 }
 .total-value {
   text-align: right;
@@ -36,5 +37,6 @@
 .clear-button {
   width: 100%;
   padding: 20px;
+  text-align: center;
 }
 /*# sourceMappingURL=calculator.1.0.0.css.map */
