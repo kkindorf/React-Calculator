@@ -21549,7 +21549,7 @@
 	    return React.createElement(
 	      "div",
 	      null,
-	      React.createElement("input", { type: "button", onClick: this.props.onClick, value: this.props.num, disabled: this.props.disabled, className: "num-button" }),
+	      React.createElement("input", { type: "button", onClick: this.props.onClick, value: this.props.num, className: "num-button" }),
 	      "\u200B"
 	    );
 	  }
