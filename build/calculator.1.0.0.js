@@ -21432,10 +21432,15 @@
 	var ClearButton = __webpack_require__(174);
 	var OpButton = __webpack_require__(175);
 	var EvalButton = __webpack_require__(176);
+	var PercButton = __webpack_require__(177);
+	var ZeroButton = __webpack_require__(178);
 	var string = '';
 	var total = '';
+	var percent = function percent(num) {
+	  return num / 100;
+	};
 	var initialState = {
-	  inputValue: ''
+	  inputValue: '0'
 	};
 	var Calculator = React.createClass({
 	  displayName: "Calculator",
@@ -21466,6 +21471,11 @@
 	    string = '';
 	  },
 	  onEvalClick: function onEvalClick() {
+	    for (var i = 0; i < string.length; i++) {
+	      if (string[i] == '%') {
+	        string = string.replace(string[i], '/100');
+	      }
+	    }
 	    total = eval(string);
 	    this.setState({
 	      inputValue: total
@@ -21490,39 +21500,37 @@
 	            React.createElement(
 	              "div",
 	              { className: "col-xs-3" },
-	              React.createElement(NumButton, { disabled: this.state.isDisabled, num: "7", onClick: this.onNumClick }),
-	              React.createElement(NumButton, { disabled: this.state.isDisabled, num: "4", onClick: this.onNumClick }),
-	              React.createElement(NumButton, { disabled: this.state.isDisabled, num: "1", onClick: this.onNumClick }),
-	              React.createElement(NumButton, { disabled: this.state.isDisabled, num: ".", onClick: this.onNumClick })
+	              React.createElement(ClearButton, { val: "AC", onClick: this.onClearClick }),
+	              React.createElement(NumButton, { num: "7", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { num: "4", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { num: "1", onClick: this.onNumClick }),
+	              React.createElement(ZeroButton, { num: "0", onClick: this.onNumClick })
 	            ),
 	            React.createElement(
 	              "div",
 	              { className: "col-xs-3" },
-	              React.createElement(NumButton, { disabled: this.state.isDisabled, num: "8", onClick: this.onNumClick }),
-	              React.createElement(NumButton, { disabled: this.state.isDisabled, num: "5", onClick: this.onNumClick }),
-	              React.createElement(NumButton, { disabled: this.state.isDisabled, num: "2", onClick: this.onNumClick }),
-	              React.createElement(NumButton, { disabled: this.state.isDisabled, num: "0", onClick: this.onNumClick })
+	              React.createElement(ClearButton, { val: "CE", onClick: this.onClearClick }),
+	              React.createElement(NumButton, { num: "5", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { num: "2", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { num: "8", onClick: this.onNumClick })
 	            ),
 	            React.createElement(
 	              "div",
 	              { className: "col-xs-3" },
-	              React.createElement(NumButton, { disabled: this.state.isDisabled, num: "9", onClick: this.onNumClick }),
-	              React.createElement(NumButton, { disabled: this.state.isDisabled, num: "6", onClick: this.onNumClick }),
-	              React.createElement(NumButton, { disabled: this.state.isDisabled, num: "3", onClick: this.onNumClick }),
+	              React.createElement(OpButton, { op: "%", onClick: this.onOpClick }),
+	              React.createElement(NumButton, { num: "9", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { num: "6", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { num: "3", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { num: ".", onClick: this.onNumClick })
+	            ),
+	            React.createElement(
+	              "div",
+	              { className: "col-xs-3" },
+	              React.createElement(OpButton, { op: "/", onClick: this.onOpClick }),
+	              React.createElement(OpButton, { op: "*", onClick: this.onOpClick }),
+	              React.createElement(OpButton, { op: "-", onClick: this.onOpClick }),
+	              React.createElement(OpButton, { op: "+", onClick: this.onOpClick }),
 	              React.createElement(EvalButton, { onClick: this.onEvalClick })
-	            ),
-	            React.createElement(
-	              "div",
-	              { className: "op-buttons" },
-	              React.createElement(
-	                "div",
-	                { className: "col-xs-3" },
-	                React.createElement(ClearButton, { onClick: this.onClearClick }),
-	                React.createElement(OpButton, { op: "/", onClick: this.onOpClick }),
-	                React.createElement(OpButton, { op: "*", onClick: this.onOpClick }),
-	                React.createElement(OpButton, { op: "-", onClick: this.onOpClick }),
-	                React.createElement(OpButton, { op: "+", onClick: this.onOpClick })
-	              )
 	            )
 	          )
 	        )
@@ -21572,7 +21580,7 @@
 	    return React.createElement(
 	      "div",
 	      null,
-	      React.createElement("input", { type: "button", value: "CLEAR", onClick: this.props.onClick, className: "clear-button" }),
+	      React.createElement("input", { type: "button", value: this.props.val, onClick: this.props.onClick, className: "clear-button" }),
 	      "\u200B"
 	    );
 	  }
@@ -21627,6 +21635,53 @@
 	});
 	
 	module.exports = EvalButton;
+
+/***/ },
+/* 177 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var ReactDom = __webpack_require__(34);
+	
+	var PercentButton = React.createClass({
+	  displayName: 'PercentButton',
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement('input', { type: 'button', value: '%', onClick: this.props.onClick, className: 'perc-button' }),
+	      '\u200B'
+	    );
+	  }
+	});
+	module.exports = PercentButton;
+
+/***/ },
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var ReactDom = __webpack_require__(34);
+	
+	var ZeroButton = React.createClass({
+	  displayName: 'ZeroButton',
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement('input', { type: 'button', onClick: this.props.onClick, value: this.props.num, className: 'zero-button' }),
+	      '\u200B'
+	    );
+	  }
+	});
+	
+	module.exports = ZeroButton;
 
 /***/ }
 /******/ ]);

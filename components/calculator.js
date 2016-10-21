@@ -4,10 +4,15 @@ var NumButton = require("./numberButtons");
 var ClearButton = require("./clearButton.js");
 var OpButton = require("./operatorButtons.js");
 var EvalButton = require("./evalButton.js");
+var PercButton = require('./percentButton.js');
+var ZeroButton = require('./zeroButton.js');
 var string = '';
 var total = '';
+var percent = function(num){
+  return num / 100;
+}
 var initialState = {
-  inputValue: ''
+  inputValue: '0'
 }
 var Calculator = React.createClass({
   getInitialState: function() {
@@ -36,6 +41,11 @@ var Calculator = React.createClass({
     string = '';
   },
   onEvalClick: function() {
+    for(var i =0; i < string.length; i++){
+      if(string[i] == '%'){
+      string = string.replace(string[i],'/100');
+      }
+    }
     total = eval(string);
     this.setState({
       inputValue: total
@@ -51,31 +61,32 @@ var Calculator = React.createClass({
                   <input type="text" id="text"
                     value={this.state.inputValue}/>
                       <div className="col-xs-3">
-                        <NumButton disabled = {this.state.isDisabled} num= '7' onClick = {this.onNumClick}/>
-                        <NumButton disabled = {this.state.isDisabled} num= '4' onClick = {this.onNumClick}/>
-                        <NumButton disabled = {this.state.isDisabled} num= '1' onClick = {this.onNumClick}/>
-                        <NumButton disabled = {this.state.isDisabled} num='.' onClick = {this.onNumClick}/>
+                        <ClearButton val = 'AC' onClick = {this.onClearClick}/>
+                        <NumButton num= '7' onClick = {this.onNumClick}/>
+                        <NumButton num= '4' onClick = {this.onNumClick}/>
+                        <NumButton num= '1' onClick = {this.onNumClick}/>
+                        <ZeroButton num= '0' onClick = {this.onNumClick}/>
                       </div>
                       <div className="col-xs-3">
-                        <NumButton disabled = {this.state.isDisabled} num= '8' onClick = {this.onNumClick}/>
-                        <NumButton disabled = {this.state.isDisabled} num= '5' onClick = {this.onNumClick}/>
-                        <NumButton disabled = {this.state.isDisabled} num= '2' onClick = {this.onNumClick}/>
-                        <NumButton disabled = {this.state.isDisabled} num= '0' onClick = {this.onNumClick}/>
+                        <ClearButton val = 'CE' onClick = {this.onClearClick}/>
+                        <NumButton num= '5' onClick = {this.onNumClick}/>
+                        <NumButton num= '2' onClick = {this.onNumClick}/>
+                        <NumButton num= '8' onClick = {this.onNumClick}/>
                       </div>
                       <div className="col-xs-3">
-                        <NumButton disabled = {this.state.isDisabled} num= '9' onClick = {this.onNumClick}/>
-                        <NumButton disabled = {this.state.isDisabled} num= '6' onClick = {this.onNumClick}/>
-                        <NumButton disabled = {this.state.isDisabled} num= '3' onClick = {this.onNumClick}/>
-                        <EvalButton onClick = {this.onEvalClick}/>
+                        <OpButton op= '%' onClick = {this.onOpClick}/>
+                        <NumButton num= '9' onClick = {this.onNumClick}/>
+                        <NumButton num= '6' onClick = {this.onNumClick}/>
+                        <NumButton num= '3' onClick = {this.onNumClick}/>
+                        <NumButton num= '.' onClick = {this.onNumClick}/>
                       </div>
-                      <div className="op-buttons">
+
                         <div className="col-xs-3">
-                          <ClearButton onClick = {this.onClearClick}/>
                           <OpButton op= '/' onClick = {this.onOpClick} />
                           <OpButton op= '*' onClick = {this.onOpClick} />
                           <OpButton op= '-' onClick = {this.onOpClick} />
                           <OpButton op= '+' onClick = {this.onOpClick} />
-                        </div>
+                          <EvalButton onClick = {this.onEvalClick}/>
                       </div>
                 </form>
               </div>
