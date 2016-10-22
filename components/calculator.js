@@ -18,29 +18,34 @@ var Calculator = React.createClass({
       return initialState;
   },
   onNumClick: function(event) {
-    if(value === '/'|| value === '+'|| value === '*' || value === '-'){
+    if(value === '/'|| value === '+'|| value === '*' || value === '-' || value === 'Digit Limit Met'){
       value = '';
     }
-    if(event.target.value === '0' && string === ''){
+    if(event.target.value === '0' && value === total.toString()){
       return;
     }
-    if(string == total || string == 'Limit Met') {
-        string = '';
+    if(event.target.value && value === '0'){
+      return;
     }
     string += event.target.value;
     value += event.target.value;
-      if(string.length === 11){
-        value = '';
-        string = 'Limit Met';
+      if(string.length === 14){
+        value = 'Digit Limit Met';
+        string = '';
       }
       this.setState({
           inputValue: value,
           equation: string
       });
-
   },
   onOpClick: function(event) {
+    if(value === '/'|| value === '+'|| value === '*' || value === '-' || value ==='.'){
+      return;
+    }
     if(value == '' && string == ''){
+      return;
+    }
+    if(value === 'Digit Limit Met'){
       return;
     }
      value = event.target.value;
@@ -52,11 +57,13 @@ var Calculator = React.createClass({
 
   },
   onDecimalClick: function(event){
-    if(value === '/'|| value === '+'|| value === '*' || value === '-'){
+    if(value === 'Digit Limit Met'){
       value = '';
+      string ='';
     }
     if(value === total.toString()){
-      return;
+      value = '';
+      string = '';
     }
     if(value.indexOf(event.target.value) !== -1){
       return;
@@ -76,8 +83,8 @@ var Calculator = React.createClass({
   },
   onEvalClick: function() {
       total = eval(string);
-      if(total.length > 10){
-        total = 'Limit Met';
+      if(total.toString().length > 10){
+        total = 'Digit Limit Met';
       }
       this.setState({
           inputValue: total,
