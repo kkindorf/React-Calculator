@@ -1,17 +1,21 @@
-.calc-container {
-    margin: 0 auto;
-    width: 30%;
-    text-align: center;
-    margin-top:10%;
+
+
+form{
+  pading-top:30px;
+  text-align: center;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  width: 300px;
+  height: 400px;
 }
 
 input {
-    border: 3px solid #90100D;
     text-align: right;
     width: 100%;
     highlight: none;
     font-family: 'Open Sans', sans-serif;
-
+    border: 3px solid #90100D;
 }
 
 input:focus {
@@ -22,33 +26,31 @@ input:focus {
     font-size: 2em;
     padding: 15px;
     color: #555;
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: 25px;
+    padding-left: 25px;
+    background: pink;
 }
 .col-xs-3 {
     padding: 0;
 }
 
+.num-button,
+.zero-button,
 .clear-button,
 .eval-button,
-.num-button,
-.op-button,
-.zero-button {
+.op-button {
     background: #90100D;
     width: 100%;
     padding: 15%;
     text-align: center;
     font-size: 1.5em;
     color: white;
+
 }
 
 .zero-button {
     width: 200%;
 }
-@media screen and (max-width:550px) {
-  .calc-container{
-    width: 65%;
-    height: 60%;
-  }
-
+.eval-button{
+  height:118px;
 }

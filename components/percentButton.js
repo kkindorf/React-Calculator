@@ -5,7 +5,7 @@ var PercentButton = React.createClass({
   render: function(){
     return(
       <div>
-                <input type="button" value='%' onClick = {this.props.onClick} className="perc-button" />​
+                <input type="button" value='%' onClick = {this.props.onClick} className="perc-button" readOnly/>​
       </div>
     )
   }
