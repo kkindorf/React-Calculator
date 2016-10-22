@@ -1,13 +1,21 @@
-
-
-form{
-  pading-top:30px;
+.calc-container{
   text-align: center;
-  margin: auto;
-  position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
-  width: 300px;
-  height: 400px;
+  padding-top:25px;
+}
+
+form {
+    text-align: center;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 300px;
+    height: 370px;
+    -webkit-box-shadow: 10px 10px 26px 0 rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 26px 0 rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 26px 0 rgba(0,0,0,0.75);
 }
 
 input {
@@ -15,7 +23,7 @@ input {
     width: 100%;
     highlight: none;
     font-family: 'Open Sans', sans-serif;
-    border: 3px solid #90100D;
+    border: 3px solid #E34A64;
 }
 
 input:focus {
@@ -23,34 +31,56 @@ input:focus {
 }
 
 #text {
-    font-size: 2em;
+    font-size: 2.3em;
     padding: 15px;
-    color: #555;
+    color: white;
     padding-right: 25px;
     padding-left: 25px;
-    background: pink;
+    background: #576973;
+    border: none;
 }
+
 .col-xs-3 {
     padding: 0;
 }
 
-.num-button,
-.zero-button,
 .clear-button,
 .eval-button,
-.op-button {
-    background: #90100D;
+.num-button,
+.op-button,
+.zero-button {
+    background: #E34A64;
     width: 100%;
     padding: 15%;
     text-align: center;
     font-size: 1.5em;
     color: white;
+}
 
+.zero-button:active {
+    background: #A4B6BF;
+}
+
+.num-button:active {
+    background: #A4B6BF;
+}
+
+.clear-button:active {
+    background: #A4B6BF;
+}
+
+.eval-button:active {
+    background: #A4B6BF;
+}
+
+.op-button:active {
+    background: #A4B6BF;
 }
 
 .zero-button {
     width: 200%;
 }
-.eval-button{
-  height:118px;
+
+.eval-button {
+    height: 118px;
 }
