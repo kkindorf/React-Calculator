@@ -21445,6 +21445,9 @@
 	    getInitialState: function getInitialState() {
 	        return initialState;
 	    },
+	    onChange: function onChange() {
+	        console.log('hi');
+	    },
 	    onNumClick: function onNumClick(event) {
 	        if (string == total) {
 	            string = '';
@@ -21491,9 +21494,9 @@
 	                    { className: "calc-container" },
 	                    React.createElement(
 	                        "form",
-	                        { onSubmit: this.onSubmit },
+	                        null,
 	                        React.createElement("input", { type: "text", id: "text",
-	                            value: this.state.inputValue }),
+	                            value: this.state.inputValue, readOnly: true }),
 	                        React.createElement(
 	                            "div",
 	                            { className: "col-xs-3" },
@@ -21507,14 +21510,14 @@
 	                            "div",
 	                            { className: "col-xs-3" },
 	                            React.createElement(ClearButton, { val: "CE", onClick: this.onClearClick }),
+	                            React.createElement(NumButton, { num: "8", onClick: this.onNumClick }),
 	                            React.createElement(NumButton, { num: "5", onClick: this.onNumClick }),
-	                            React.createElement(NumButton, { num: "2", onClick: this.onNumClick }),
-	                            React.createElement(NumButton, { num: "8", onClick: this.onNumClick })
+	                            React.createElement(NumButton, { num: "2", onClick: this.onNumClick })
 	                        ),
 	                        React.createElement(
 	                            "div",
 	                            { className: "col-xs-3" },
-	                            React.createElement(OpButton, { op: "%", onClick: this.onOpClick }),
+	                            React.createElement(OpButton, { op: "/", onClick: this.onOpClick }),
 	                            React.createElement(NumButton, { num: "9", onClick: this.onNumClick }),
 	                            React.createElement(NumButton, { num: "6", onClick: this.onNumClick }),
 	                            React.createElement(NumButton, { num: "3", onClick: this.onNumClick }),
@@ -21523,7 +21526,6 @@
 	                        React.createElement(
 	                            "div",
 	                            { className: "col-xs-3" },
-	                            React.createElement(OpButton, { op: "/", onClick: this.onOpClick }),
 	                            React.createElement(OpButton, { op: "*", onClick: this.onOpClick }),
 	                            React.createElement(OpButton, { op: "-", onClick: this.onOpClick }),
 	                            React.createElement(OpButton, { op: "+", onClick: this.onOpClick }),
@@ -21554,7 +21556,7 @@
 	    return React.createElement(
 	      "div",
 	      null,
-	      React.createElement("input", { type: "button", onClick: this.props.onClick, value: this.props.num, className: "num-button" }),
+	      React.createElement("input", { type: "button", onClick: this.props.onClick, value: this.props.num, className: "num-button", readOnly: true }),
 	      "\u200B"
 	    );
 	  }
@@ -21569,7 +21571,6 @@
 	
 	var React = __webpack_require__(1);
 	var ReactDom = __webpack_require__(34);
-	
 	var ClearButton = React.createClass({
 	  displayName: "ClearButton",
 	
@@ -21577,7 +21578,7 @@
 	    return React.createElement(
 	      "div",
 	      null,
-	      React.createElement("input", { type: "button", value: this.props.val, onClick: this.props.onClick, className: "clear-button" }),
+	      React.createElement("input", { type: "button", value: this.props.val, onClick: this.props.onClick, className: "clear-button", readOnly: true }),
 	      "\u200B"
 	    );
 	  }
@@ -21617,7 +21618,6 @@
 	
 	var React = __webpack_require__(1);
 	var reactDom = __webpack_require__(34);
-	
 	var EvalButton = React.createClass({
 	  displayName: 'EvalButton',
 	
@@ -21625,7 +21625,7 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement('input', { type: 'button', onClick: this.props.onClick, className: 'eval-button', value: '=' }),
+	      React.createElement('input', { type: 'button', onClick: this.props.onClick, className: 'eval-button', value: '=', readOnly: true }),
 	      '\u200B'
 	    );
 	  }
@@ -21649,7 +21649,7 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement('input', { type: 'button', value: '%', onClick: this.props.onClick, className: 'perc-button' }),
+	      React.createElement('input', { type: 'button', value: '%', onClick: this.props.onClick, className: 'perc-button', readOnly: true }),
 	      '\u200B'
 	    );
 	  }
@@ -21672,7 +21672,7 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement('input', { type: 'button', onClick: this.props.onClick, value: this.props.num, className: 'zero-button' }),
+	      React.createElement('input', { type: 'button', onClick: this.props.onClick, value: this.props.num, className: 'zero-button', readOnly: true }),
 	      '\u200B'
 	    );
 	  }
