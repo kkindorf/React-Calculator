@@ -8,62 +8,95 @@ var PercButton = require('./percentButton.js');
 var ZeroButton = require('./zeroButton.js');
 var string = '';
 var total = '';
+var value = '';
 var initialState = {
-  inputValue: '0'
+  inputValue: '0',
+  equation: '0'
 }
 var Calculator = React.createClass({
   getInitialState: function() {
       return initialState;
   },
   onNumClick: function(event) {
-      if(event.target.value === '0' && string === ''){
-        return;
-      }
-      if(string == total || string == 'Limit Met') {
-          string = '';
-      }
-      string += event.target.value;
+    if(value === '/'|| value === '+'|| value === '*' || value === '-'){
+      value = '';
+    }
+    if(event.target.value === '0' && string === ''){
+      return;
+    }
+    if(string == total || string == 'Limit Met') {
+        string = '';
+    }
+    string += event.target.value;
+    value += event.target.value;
       if(string.length === 11){
+        value = '';
         string = 'Limit Met';
       }
       this.setState({
-          inputValue: string
+          inputValue: value,
+          equation: string
       });
 
   },
   onOpClick: function(event) {
-      if (isNaN(string[string.length - 1])) {
-          return;
-      }
+    if(value == '' && string == ''){
+      return;
+    }
+     value = event.target.value;
       string += event.target.value;
       this.setState({
-          inputValue: string
+          inputValue: value,
+          equation: string
       });
+
+  },
+  onDecimalClick: function(event){
+    if(value === '/'|| value === '+'|| value === '*' || value === '-'){
+      value = '';
+    }
+    if(value === total.toString()){
+      return;
+    }
+    if(value.indexOf(event.target.value) !== -1){
+      return;
+    }
+    value += event.target.value;
+    string+=event.target.value;
+    this.setState({
+        inputValue: value,
+        equation: string
+    });
+
   },
   onClearClick: function() {
       this.setState(this.getInitialState());
       string = '';
+      value = '';
   },
   onEvalClick: function() {
-      for (var i = 0; i < string.length; i++) {
-          if (string[i] == '%') {
-              string = string.replace(string[i], '/100');
-          }
-      }
       total = eval(string);
+      if(total.length > 10){
+        total = 'Limit Met';
+      }
       this.setState({
-          inputValue: total
+          inputValue: total,
+          equation: ''
       });
+      value = total.toString();
       string = total.toString();
   },
   render: function() {
     return (
           <div className="container-fluid">
             <div className="row">
+
               <div className="calc-container">
-                <form>
+
                   <input type="text" id="text"
                     value={this.state.inputValue} readOnly/>
+                    <input type="text" id="equation"
+                      value={this.state.equation} readOnly/>
                       <div className="col-xs-3">
                         <ClearButton val = 'AC' onClick = {this.onClearClick}/>
                         <NumButton num= '7' onClick = {this.onNumClick}/>
@@ -82,19 +115,17 @@ var Calculator = React.createClass({
                         <NumButton num= '9' onClick = {this.onNumClick}/>
                         <NumButton num= '6' onClick = {this.onNumClick}/>
                         <NumButton num= '3' onClick = {this.onNumClick}/>
-                        <NumButton num= '.' onClick = {this.onNumClick}/>
+                        <NumButton num= '.' onClick = {this.onDecimalClick}/>
                       </div>
-                        <div className="col-xs-3">
-                          <OpButton op= '*' onClick = {this.onOpClick} />
-                          <OpButton op= '-' onClick = {this.onOpClick} />
-                          <OpButton op= '+' onClick = {this.onOpClick} />
-                          <EvalButton onClick = {this.onEvalClick}/>
-                      </div>
-                </form>
+                      <div className="col-xs-3">
+                        <OpButton op= '*' onClick = {this.onOpClick} />
+                        <OpButton op= '-' onClick = {this.onOpClick} />
+                        <OpButton op= '+' onClick = {this.onOpClick} />
+                        <EvalButton onClick = {this.onEvalClick}/>
+                    </div>
               </div>
             </div>
           </div>
-
     )
   }
 })
