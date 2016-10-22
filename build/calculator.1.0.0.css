@@ -43,6 +43,9 @@ input:focus {
   font-size: 1.5em;
   color: white;
 }
+.zero-button:active {
+  background: #555;
+}
 .zero-button {
   width: 200%;
 }
