@@ -21437,105 +21437,108 @@
 	var string = '';
 	var total = '';
 	var initialState = {
-	    inputValue: '0'
+	  inputValue: '0'
 	};
 	var Calculator = React.createClass({
-	    displayName: "Calculator",
+	  displayName: "Calculator",
 	
-	    getInitialState: function getInitialState() {
-	        return initialState;
-	    },
-	    onChange: function onChange() {
-	        console.log('hi');
-	    },
-	    onNumClick: function onNumClick(event) {
-	        if (string == total) {
-	            string = '';
-	        }
-	        string += event.target.value;
-	        this.setState({
-	            inputValue: string
-	        });
-	    },
-	    onOpClick: function onOpClick(event) {
-	        if (isNaN(string[string.length - 1])) {
-	            return;
-	        }
-	        string += event.target.value;
-	        this.setState({
-	            inputValue: string
-	        });
-	    },
-	    onClearClick: function onClearClick() {
-	        this.setState(this.getInitialState());
-	        string = '';
-	    },
-	    onEvalClick: function onEvalClick() {
-	        for (var i = 0; i < string.length; i++) {
-	            if (string[i] == '%') {
-	                string = string.replace(string[i], '/100');
-	            }
-	        }
-	        total = eval(string);
-	        this.setState({
-	            inputValue: total
-	        });
-	        string = total.toString();
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            "div",
-	            { className: "container-fluid" },
-	            React.createElement(
-	                "div",
-	                { className: "row" },
-	                React.createElement(
-	                    "div",
-	                    { className: "calc-container" },
-	                    React.createElement(
-	                        "form",
-	                        null,
-	                        React.createElement("input", { type: "text", id: "text",
-	                            value: this.state.inputValue, readOnly: true }),
-	                        React.createElement(
-	                            "div",
-	                            { className: "col-xs-3" },
-	                            React.createElement(ClearButton, { val: "AC", onClick: this.onClearClick }),
-	                            React.createElement(NumButton, { num: "7", onClick: this.onNumClick }),
-	                            React.createElement(NumButton, { num: "4", onClick: this.onNumClick }),
-	                            React.createElement(NumButton, { num: "1", onClick: this.onNumClick }),
-	                            React.createElement(ZeroButton, { num: "0", onClick: this.onNumClick })
-	                        ),
-	                        React.createElement(
-	                            "div",
-	                            { className: "col-xs-3" },
-	                            React.createElement(ClearButton, { val: "CE", onClick: this.onClearClick }),
-	                            React.createElement(NumButton, { num: "8", onClick: this.onNumClick }),
-	                            React.createElement(NumButton, { num: "5", onClick: this.onNumClick }),
-	                            React.createElement(NumButton, { num: "2", onClick: this.onNumClick })
-	                        ),
-	                        React.createElement(
-	                            "div",
-	                            { className: "col-xs-3" },
-	                            React.createElement(OpButton, { op: "/", onClick: this.onOpClick }),
-	                            React.createElement(NumButton, { num: "9", onClick: this.onNumClick }),
-	                            React.createElement(NumButton, { num: "6", onClick: this.onNumClick }),
-	                            React.createElement(NumButton, { num: "3", onClick: this.onNumClick }),
-	                            React.createElement(NumButton, { num: ".", onClick: this.onNumClick })
-	                        ),
-	                        React.createElement(
-	                            "div",
-	                            { className: "col-xs-3" },
-	                            React.createElement(OpButton, { op: "*", onClick: this.onOpClick }),
-	                            React.createElement(OpButton, { op: "-", onClick: this.onOpClick }),
-	                            React.createElement(OpButton, { op: "+", onClick: this.onOpClick }),
-	                            React.createElement(EvalButton, { onClick: this.onEvalClick })
-	                        )
-	                    )
-	                )
-	            )
-	        );
+	  getInitialState: function getInitialState() {
+	    return initialState;
+	  },
+	  onNumClick: function onNumClick(event) {
+	    if (event.target.value === '0' && string === '') {
+	      return;
 	    }
+	    if (string == total || string == 'Limit Met') {
+	      string = '';
+	    }
+	    string += event.target.value;
+	    if (string.length === 11) {
+	      string = 'Limit Met';
+	    }
+	    this.setState({
+	      inputValue: string
+	    });
+	  },
+	  onOpClick: function onOpClick(event) {
+	    if (isNaN(string[string.length - 1])) {
+	      return;
+	    }
+	    string += event.target.value;
+	    this.setState({
+	      inputValue: string
+	    });
+	  },
+	  onClearClick: function onClearClick() {
+	    this.setState(this.getInitialState());
+	    string = '';
+	  },
+	  onEvalClick: function onEvalClick() {
+	    for (var i = 0; i < string.length; i++) {
+	      if (string[i] == '%') {
+	        string = string.replace(string[i], '/100');
+	      }
+	    }
+	    total = eval(string);
+	    this.setState({
+	      inputValue: total
+	    });
+	    string = total.toString();
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      "div",
+	      { className: "container-fluid" },
+	      React.createElement(
+	        "div",
+	        { className: "row" },
+	        React.createElement(
+	          "div",
+	          { className: "calc-container" },
+	          React.createElement(
+	            "form",
+	            null,
+	            React.createElement("input", { type: "text", id: "text",
+	              value: this.state.inputValue, readOnly: true }),
+	            React.createElement(
+	              "div",
+	              { className: "col-xs-3" },
+	              React.createElement(ClearButton, { val: "AC", onClick: this.onClearClick }),
+	              React.createElement(NumButton, { num: "7", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { num: "4", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { num: "1", onClick: this.onNumClick }),
+	              React.createElement(ZeroButton, { num: "0", onClick: this.onNumClick })
+	            ),
+	            React.createElement(
+	              "div",
+	              { className: "col-xs-3" },
+	              React.createElement(ClearButton, { val: "CE", onClick: this.onClearClick }),
+	              React.createElement(NumButton, { num: "8", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { num: "5", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { num: "2", onClick: this.onNumClick })
+	            ),
+	            React.createElement(
+	              "div",
+	              { className: "col-xs-3" },
+	              React.createElement(OpButton, { op: "/", onClick: this.onOpClick }),
+	              React.createElement(NumButton, { num: "9", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { num: "6", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { num: "3", onClick: this.onNumClick }),
+	              React.createElement(NumButton, { num: ".", onClick: this.onNumClick })
+	            ),
+	            React.createElement(
+	              "div",
+	              { className: "col-xs-3" },
+	              React.createElement(OpButton, { op: "*", onClick: this.onOpClick }),
+	              React.createElement(OpButton, { op: "-", onClick: this.onOpClick }),
+	              React.createElement(OpButton, { op: "+", onClick: this.onOpClick }),
+	              React.createElement(EvalButton, { onClick: this.onEvalClick })
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
 	});
 	
 	module.exports = Calculator;
@@ -21556,7 +21559,7 @@
 	    return React.createElement(
 	      "div",
 	      null,
-	      React.createElement("input", { type: "button", onClick: this.props.onClick, value: this.props.num, className: "num-button", readOnly: true }),
+	      React.createElement("input", { type: "button", onClick: this.props.onClick, value: this.props.num, className: "num-button" }),
 	      "\u200B"
 	    );
 	  }
@@ -21578,7 +21581,7 @@
 	    return React.createElement(
 	      "div",
 	      null,
-	      React.createElement("input", { type: "button", value: this.props.val, onClick: this.props.onClick, className: "clear-button", readOnly: true }),
+	      React.createElement("input", { type: "button", value: this.props.val, onClick: this.props.onClick, className: "clear-button" }),
 	      "\u200B"
 	    );
 	  }
@@ -21625,7 +21628,7 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement('input', { type: 'button', onClick: this.props.onClick, className: 'eval-button', value: '=', readOnly: true }),
+	      React.createElement('input', { type: 'button', onClick: this.props.onClick, className: 'eval-button', value: '=' }),
 	      '\u200B'
 	    );
 	  }
@@ -21649,7 +21652,7 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement('input', { type: 'button', value: '%', onClick: this.props.onClick, className: 'perc-button', readOnly: true }),
+	      React.createElement('input', { type: 'button', value: '%', onClick: this.props.onClick, className: 'perc-button' }),
 	      '\u200B'
 	    );
 	  }
@@ -21672,7 +21675,7 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement('input', { type: 'button', onClick: this.props.onClick, value: this.props.num, className: 'zero-button', readOnly: true }),
+	      React.createElement('input', { type: 'button', onClick: this.props.onClick, value: this.props.num, className: 'zero-button' }),
 	      '\u200B'
 	    );
 	  }

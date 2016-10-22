@@ -15,17 +15,21 @@ var Calculator = React.createClass({
   getInitialState: function() {
       return initialState;
   },
-  onChange: function(){
-    console.log('hi');
-  },
   onNumClick: function(event) {
-      if (string == total) {
+      if(event.target.value === '0' && string === ''){
+        return;
+      }
+      if(string == total || string == 'Limit Met') {
           string = '';
       }
       string += event.target.value;
+      if(string.length === 11){
+        string = 'Limit Met';
+      }
       this.setState({
           inputValue: string
       });
+
   },
   onOpClick: function(event) {
       if (isNaN(string[string.length - 1])) {
@@ -57,7 +61,6 @@ var Calculator = React.createClass({
           <div className="container-fluid">
             <div className="row">
               <div className="calc-container">
-          
                 <form>
                   <input type="text" id="text"
                     value={this.state.inputValue} readOnly/>

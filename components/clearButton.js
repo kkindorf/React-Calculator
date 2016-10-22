@@ -4,7 +4,7 @@ var ClearButton = React.createClass({
   render: function() {
     return (
       <div>
-          <input type="button" value={this.props.val} onClick = {this.props.onClick} className="clear-button" readOnly />​
+          <input type="button" value={this.props.val} onClick = {this.props.onClick} className="clear-button"/>​
       </div>
     )
   }
