@@ -21448,17 +21448,27 @@
 	    return initialState;
 	  },
 	  onNumClick: function onNumClick(event) {
-	    if (value === '/' || value === '+' || value === '*' || value === '-' || value === 'Digit Limit Met' || value === 'Not a Number') {
+	    if (value === '/' || value === '+' || value === '*' || value === '-' || value === 'Digit Limit Met' || value === 'Not a Number' || value === total.toString()) {
 	      value = '';
 	    }
 	    if (string == 'Digit Limit Met' || string === 'Not a Number') {
 	      string = '';
 	    }
-	
 	    if (value === '0') {
-	      string = '';
 	      value = '';
+	      string = '';
 	    }
+	    if (value === '0' && parseInt(event.target.value) >= 0) {
+	      return;
+	    }
+	
+	    if (event.target.value === '0' && string.charAt(string.length - 1) === '0' && isNaN(parseInt(string.charAt(string.length - 2))) && string.charAt(string.length - 2) !== '.') {
+	      return;
+	    }
+	    if (string === '0' || string === total.toString()) {
+	      string = '';
+	    }
+	
 	    if (value === 'Infinity') {
 	      return;
 	    }
@@ -21480,6 +21490,9 @@
 	    if (value == '' && string == '') {
 	      return;
 	    }
+	    if (string.charAt(string.length - 1) === '.') {
+	      return;
+	    }
 	
 	    if (value === 'Digit Limit Met' || value === 'Not a Number') {
 	      return;
@@ -21496,12 +21509,11 @@
 	      value = '';
 	      string = '';
 	    }
-	    if (value === total.toString()) {
-	      return;
-	    }
+	
 	    if (value.indexOf(event.target.value) !== -1) {
 	      return;
 	    }
+	
 	    value = event.target.value;
 	    string += event.target.value;
 	    this.setState({
@@ -21530,7 +21542,7 @@
 	      equation: ''
 	    });
 	    value = total.toString();
-	    string = total;
+	    string = total.toString();
 	  },
 	  render: function render() {
 	    return React.createElement(
