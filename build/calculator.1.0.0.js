@@ -21448,6 +21448,7 @@
 	    return initialState;
 	  },
 	  onNumClick: function onNumClick(event) {
+	    //checking all edge cases
 	    if (value === '/' || value === '+' || value === '*' || value === '-' || value === 'Digit Limit Met' || value === 'Not a Number' || value === total.toString()) {
 	      value = '';
 	    }
@@ -21461,17 +21462,17 @@
 	    if (value === '0' && parseInt(event.target.value) >= 0) {
 	      return;
 	    }
-	
+	    //TODO see if I can shorten this statement later
 	    if (event.target.value === '0' && string.charAt(string.length - 1) === '0' && isNaN(parseInt(string.charAt(string.length - 2))) && string.charAt(string.length - 2) !== '.') {
 	      return;
 	    }
 	    if (string === '0' || string === total.toString()) {
 	      string = '';
 	    }
-	
 	    if (value === 'Infinity') {
 	      return;
 	    }
+	    //after edge cases checked add event.target.value to string and value
 	    string += event.target.value;
 	    value += event.target.value;
 	    if (string.length === 14) {
@@ -21483,17 +21484,21 @@
 	      equation: string
 	    });
 	  },
+	  //on operator click
 	  onOpClick: function onOpClick(event) {
+	    //if value is already an operator, break
 	    if (value === '/' || value === '+' || value === '*' || value === '-') {
 	      return;
 	    }
+	    //if we are at first page load you cannot add a operator
 	    if (value == '' && string == '') {
 	      return;
 	    }
+	    //if the last character in string is a decimal, than an operator cannot
+	    //be added to equation
 	    if (string.charAt(string.length - 1) === '.') {
 	      return;
 	    }
-	
 	    if (value === 'Digit Limit Met' || value === 'Not a Number') {
 	      return;
 	    }
@@ -21513,10 +21518,10 @@
 	      value = '';
 	      string = '';
 	    }
+	    //you cannot add a decimal to a number if the number is already a decimal
 	    if (value.indexOf(event.target.value) !== -1) {
 	      return;
 	    }
-	
 	    value += event.target.value;
 	    string += event.target.value;
 	    this.setState({
@@ -21525,6 +21530,7 @@
 	    });
 	  },
 	  onClearClick: function onClearClick() {
+	    //reset state of app
 	    this.setState(this.getInitialState());
 	    string = '';
 	    value = '';
@@ -21534,9 +21540,11 @@
 	    if (total.toString().length > 10) {
 	      total = 'Digit Limit Met';
 	    }
+	    //if total equals infinity
 	    if (total == Number.POSITIVE_INFINITY) {
 	      total = 'Digit Limit Met';
 	    }
+	    //if total is not a number
 	    if (isNaN(total)) {
 	      total = 'Digit Limit Met';
 	    }
@@ -21544,6 +21552,7 @@
 	      inputValue: total,
 	      equation: ''
 	    });
+	    //store total in value and string for later use
 	    value = total.toString();
 	    string = total.toString();
 	  },
