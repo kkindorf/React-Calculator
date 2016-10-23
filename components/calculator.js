@@ -18,6 +18,7 @@ var Calculator = React.createClass({
       return initialState;
   },
   onNumClick: function(event) {
+    //checking all edge cases
     if(value === '/'|| value === '+'|| value === '*' || value === '-' || value === 'Digit Limit Met' || value === 'Not a Number' || value === total.toString()){
       value = '';
     }
@@ -31,17 +32,17 @@ var Calculator = React.createClass({
     if(value === '0' && parseInt(event.target.value) >= 0){
       return;
     }
-
+    //TODO see if I can shorten this statement later
     if(event.target.value === '0' && string.charAt(string.length - 1) === '0' && isNaN(parseInt(string.charAt(string.length - 2))) && string.charAt(string.length - 2)!=='.'){
       return;
     }
     if(string === '0' || string === total.toString()){
       string = '';
     }
-
     if(value ==='Infinity'){
        return;
     }
+    //after edge cases checked add event.target.value to string and value
     string += event.target.value;
     value += event.target.value;
       if(string.length === 14){
@@ -53,17 +54,21 @@ var Calculator = React.createClass({
           equation: string
       });
   },
+  //on operator click
   onOpClick: function(event) {
+    //if value is already an operator, break
     if(value === '/'|| value === '+'|| value === '*' || value === '-'){
       return;
     }
+    //if we are at first page load you cannot add a operator
     if(value == '' && string == ''){
       return;
     }
+    //if the last character in string is a decimal, than an operator cannot
+    //be added to equation
     if(string.charAt(string.length - 1) === '.'){
       return;
     }
-
     if(value === 'Digit Limit Met' || value === 'Not a Number'){
       return;
     }
@@ -84,10 +89,10 @@ var Calculator = React.createClass({
       value = '';
       string = '';
     }
+    //you cannot add a decimal to a number if the number is already a decimal
     if(value.indexOf(event.target.value) !== -1){
       return;
     }
-
     value += event.target.value;
     string+=event.target.value;
     this.setState({
@@ -96,6 +101,7 @@ var Calculator = React.createClass({
     });
   },
   onClearClick: function() {
+    //reset state of app
       this.setState(this.getInitialState());
       string = '';
       value = '';
@@ -105,9 +111,11 @@ var Calculator = React.createClass({
       if(total.toString().length > 10){
         total = 'Digit Limit Met';
       }
+      //if total equals infinity
       if(total == Number.POSITIVE_INFINITY){
         total = 'Digit Limit Met';
       }
+      //if total is not a number
       if(isNaN(total)){
         total = 'Digit Limit Met';
       }
@@ -115,51 +123,50 @@ var Calculator = React.createClass({
           inputValue: total,
           equation: ''
       });
+      //store total in value and string for later use
       value = total.toString();
       string = total.toString();
   },
   render: function() {
-    return (
-          <div className="container-fluid">
-            <div className="row">
-
-              <div className="calc-container">
-
-                  <input type="text" id="text"
-                    value={this.state.inputValue} readOnly/>
-                    <input type="text" id="equation"
-                      value={this.state.equation} readOnly/>
-                      <div className="col-xs-3">
-                        <ClearButton val = 'AC' onClick = {this.onClearClick}/>
-                        <NumButton num= '7' onClick = {this.onNumClick}/>
-                        <NumButton num= '4' onClick = {this.onNumClick}/>
-                        <NumButton num= '1' onClick = {this.onNumClick}/>
-                        <ZeroButton num= '0' onClick = {this.onNumClick}/>
-                      </div>
-                      <div className="col-xs-3">
-                        <ClearButton val = 'CE' onClick = {this.onClearClick}/>
-                        <NumButton num= '8' onClick = {this.onNumClick}/>
-                        <NumButton num= '5' onClick = {this.onNumClick}/>
-                        <NumButton num= '2' onClick = {this.onNumClick}/>
-                      </div>
-                      <div className="col-xs-3">
-                       <OpButton op= '/' onClick = {this.onOpClick} />
-                        <NumButton num= '9' onClick = {this.onNumClick}/>
-                        <NumButton num= '6' onClick = {this.onNumClick}/>
-                        <NumButton num= '3' onClick = {this.onNumClick}/>
-                        <NumButton num= '.' onClick = {this.onDecimalClick}/>
-                      </div>
-                      <div className="col-xs-3">
-                        <OpButton op= '*' onClick = {this.onOpClick} />
-                        <OpButton op= '-' onClick = {this.onOpClick} />
-                        <OpButton op= '+' onClick = {this.onOpClick} />
-                        <EvalButton onClick = {this.onEvalClick}/>
+      return (
+                <div className="container-fluid">
+                  <div className="row">
+                    <div className="calc-container">
+                        <input type="text" id="text"
+                          value={this.state.inputValue} readOnly/>
+                        <input type="text" id="equation"
+                          value={this.state.equation} readOnly/>
+                          <div className="col-xs-3">
+                            <ClearButton val = 'AC' onClick = {this.onClearClick}/>
+                            <NumButton num= '7' onClick = {this.onNumClick}/>
+                            <NumButton num= '4' onClick = {this.onNumClick}/>
+                            <NumButton num= '1' onClick = {this.onNumClick}/>
+                            <ZeroButton num= '0' onClick = {this.onNumClick}/>
+                          </div>
+                          <div className="col-xs-3">
+                            <ClearButton val = 'CE' onClick = {this.onClearClick}/>
+                            <NumButton num= '8' onClick = {this.onNumClick}/>
+                            <NumButton num= '5' onClick = {this.onNumClick}/>
+                            <NumButton num= '2' onClick = {this.onNumClick}/>
+                          </div>
+                          <div className="col-xs-3">
+                           <OpButton op= '/' onClick = {this.onOpClick} />
+                            <NumButton num= '9' onClick = {this.onNumClick}/>
+                            <NumButton num= '6' onClick = {this.onNumClick}/>
+                            <NumButton num= '3' onClick = {this.onNumClick}/>
+                            <NumButton num= '.' onClick = {this.onDecimalClick}/>
+                          </div>
+                          <div className="col-xs-3">
+                            <OpButton op= '*' onClick = {this.onOpClick}/>
+                            <OpButton op= '-' onClick = {this.onOpClick}/>
+                            <OpButton op= '+' onClick = {this.onOpClick}/>
+                            <EvalButton onClick = {this.onEvalClick}/>
+                        </div>
                     </div>
-              </div>
-            </div>
-          </div>
-    )
-  }
+                  </div>
+                </div>
+          )
+      }
 })
 
 module.exports = Calculator;
