@@ -20,7 +20,8 @@ I didn't go crazy finding the perfect font for this application simply because I
 I was more focused on creating a smooth user experience that handled as many edge cases as possible to prevent unexpected behavior and I believe
 I achieved that. 
 
-![alt tag](http://i.imgur.com/aSzHpskl.png)
+![alt tag](http://i.imgur.com/piRxAgil.png)
+
 This image displays how the equation and current value being entered look on the calculator's display screen. I decided to go this direction
 because I thought it was easy to read and it was also easy to follow what the equation was doing. The total result after the equation is completed
 will only be displayed in the larger font.
