@@ -9,9 +9,9 @@
   right: 0;
   width: 300px;
   height: 370px;
-  -webkit-box-shadow: 10px 10px 31px 0px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 10px 10px 31px 0px rgba(0, 0, 0, 0.75);
-  box-shadow: 10px 10px 31px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 10px 10px 31px 0 rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 31px 0 rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 31px 0 rgba(0, 0, 0, 0.75);
 }
 input {
   text-align: right;
@@ -32,7 +32,7 @@ input:focus {
   border: none;
 }
 #equation {
-  font-size: 1.2em;
+  font-size: 1em;
   margin: 0;
   padding-right: 30px;
   padding-left: 25px;
