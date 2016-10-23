@@ -21509,12 +21509,15 @@
 	      value = '';
 	      string = '';
 	    }
-	
+	    if (value === total.toString()) {
+	      value = '';
+	      string = '';
+	    }
 	    if (value.indexOf(event.target.value) !== -1) {
 	      return;
 	    }
 	
-	    value = event.target.value;
+	    value += event.target.value;
 	    string += event.target.value;
 	    this.setState({
 	      inputValue: value,
