@@ -21455,10 +21455,10 @@
 	      string = '';
 	    }
 	
-	    if (value === '0' && event.target.value === '0') {
-	      return;
+	    if (value === '0') {
+	      string = '';
+	      value = '';
 	    }
-	
 	    if (value === 'Infinity') {
 	      return;
 	    }
