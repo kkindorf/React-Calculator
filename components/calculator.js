@@ -18,14 +18,19 @@ var Calculator = React.createClass({
       return initialState;
   },
   onNumClick: function(event) {
-    if(value === '/'|| value === '+'|| value === '*' || value === '-' || value === 'Digit Limit Met'){
+    if(value === '/'|| value === '+'|| value === '*' || value === '-' || value === 'Digit Limit Met' || value === 'Not a Number'){
       value = '';
     }
-    if(event.target.value === '0' && value === total.toString()){
+    if(string == 'Digit Limit Met' || string === 'Not a Number'){
+      string = '';
+    }
+
+    if(value === '0' && event.target.value === '0'){
       return;
     }
-    if(event.target.value && value === '0'){
-      return;
+
+    if(value ==='Infinity'){
+       return;
     }
     string += event.target.value;
     value += event.target.value;
@@ -39,13 +44,14 @@ var Calculator = React.createClass({
       });
   },
   onOpClick: function(event) {
-    if(value === '/'|| value === '+'|| value === '*' || value === '-' || value ==='.'){
+    if(value === '/'|| value === '+'|| value === '*' || value === '-'){
       return;
     }
     if(value == '' && string == ''){
       return;
     }
-    if(value === 'Digit Limit Met'){
+
+    if(value === 'Digit Limit Met' || value === 'Not a Number'){
       return;
     }
      value = event.target.value;
@@ -62,19 +68,17 @@ var Calculator = React.createClass({
       string ='';
     }
     if(value === total.toString()){
-      value = '';
-      string = '';
+      return;
     }
     if(value.indexOf(event.target.value) !== -1){
       return;
     }
-    value += event.target.value;
+    value = event.target.value;
     string+=event.target.value;
     this.setState({
         inputValue: value,
         equation: string
     });
-
   },
   onClearClick: function() {
       this.setState(this.getInitialState());
@@ -86,12 +90,18 @@ var Calculator = React.createClass({
       if(total.toString().length > 10){
         total = 'Digit Limit Met';
       }
+      if(total == Number.POSITIVE_INFINITY){
+        total = 'Digit Limit Met';
+      }
+      if(isNaN(total)){
+        total = 'Digit Limit Met';
+      }
       this.setState({
           inputValue: total,
           equation: ''
       });
       value = total.toString();
-      string = total.toString();
+      string = total;
   },
   render: function() {
     return (
