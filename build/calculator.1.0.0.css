@@ -8,7 +8,7 @@
   bottom: 0;
   right: 0;
   width: 300px;
-  height: 370px;
+  height: 390px;
   -webkit-box-shadow: 10px 10px 31px 0 rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 10px 10px 31px 0 rgba(0, 0, 0, 0.75);
   box-shadow: 10px 10px 31px 0 rgba(0, 0, 0, 0.75);
@@ -70,25 +70,10 @@ input:focus {
 .op-button:active {
   background: #A4B6BF;
 }
-.zero-button:hover {
-  background: #A4B6BF;
-}
-.num-button:hover {
-  background: #A4B6BF;
-}
-.clear-button:hover {
-  background: #A4B6BF;
-}
-.eval-button:hover {
-  background: #A4B6BF;
-}
-.op-button:hover {
-  background: #A4B6BF;
-}
 .zero-button {
   width: 200%;
 }
 .eval-button {
-  height: 118px;
+  height: 137px;
 }
 /*# sourceMappingURL=calculator.1.0.0.css.map */
