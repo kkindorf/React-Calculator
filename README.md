@@ -1,7 +1,7 @@
 # React-Calculator
 
 ## Overview
-I'm currently working through FreeCodeCamp's frontend development curriculum and I had just finished Thinkful's Web Development Bootcamp program 
+I'm currently working through FreeCodeCamp's frontend development curriculum 
 when I started working on this project. I had been wanting to build this calculator for a long time but I wanted to put my own twist to it. 
 I decided to use React as my framework for building the application because I wanted an excuse to continue developing my experience with React.
 I think after building the whole project, I would definitely use React again for an application that required similiar functionality. React's functional programming
